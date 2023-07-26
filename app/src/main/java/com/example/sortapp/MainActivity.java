@@ -38,52 +38,50 @@ public class MainActivity extends AppCompatActivity {
                 adapter.setData(dataList);
             }
         });
-
-        Button sortButton1 = findViewById(R.id.sortButton1);
-        sortButton1.setOnClickListener(new View.OnClickListener() {
+        Button sortBubbleButton = findViewById(R.id.sortBubbleButton);
+        sortBubbleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sortDataMethod1();
-                adapter.setData(dataList);
-            }
-        });
-        Button sortButton2 = findViewById(R.id.sortButton2);
-        sortButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sortDataMethod2();
+                sortBubble();
                 adapter.setData(dataList);
             }
         });
 
-        Button sortButton3 = findViewById(R.id.sortButton3);
-        sortButton3.setOnClickListener(new View.OnClickListener() {
+        Button sortSelectionButton = findViewById(R.id.sortSelectionButton);
+        sortSelectionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sortDataMethod3();
+                sortSelection();
                 adapter.setData(dataList);
             }
         });
 
-        Button sortButton4 = findViewById(R.id.sortButton4);
-        sortButton4.setOnClickListener(new View.OnClickListener() {
+        Button sortInsertionButton = findViewById(R.id.sortInsertionButton);
+        sortInsertionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sortDataMethod4();
-                adapter.setData(dataList);
-            }
-        });
-        Button sortButton5 = findViewById(R.id.sortButton5);
-        sortButton5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sortDataMethod5();
+                sortInsertion();
                 adapter.setData(dataList);
             }
         });
 
+        Button sortMergeButton = findViewById(R.id.sortMergeButton);
+        sortMergeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sortMerge();
+                adapter.setData(dataList);
+            }
+        });
 
-        // Add similar onClickListeners for sortButton2, sortButton3, sortButton4, and sortButton5
+        Button sortQuickButton = findViewById(R.id.sortQuickButton);
+        sortQuickButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sortQuick(dataList, 0, dataList.size() - 1);
+                adapter.setData(dataList);
+            }
+        });
     }
 
     private List<String> generateRandomData(int count) {
@@ -104,38 +102,114 @@ public class MainActivity extends AppCompatActivity {
         return data;
     }
 
-    private void sortDataMethod1() {
-        Collections.sort(dataList);
+    private void sortBubble() {
+        int n = dataList.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (dataList.get(j).compareTo(dataList.get(j + 1)) > 0) {
+                    Collections.swap(dataList, j, j + 1);
+                }
+            }
+        }
     }
 
-    private void sortDataMethod2() {
-        Collections.sort(dataList, new Comparator<String>() {
-            @Override
-            public int compare(String s1, String s2) {
-                return Integer.compare(s1.length(), s2.length());
+    private void sortSelection() {
+        int n = dataList.size();
+        for (int i = 0; i < n - 1; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < n; j++) {
+                if (dataList.get(j).compareTo(dataList.get(minIndex)) < 0) {
+                    minIndex = j;
+                }
             }
-        });
-    }
-    private void sortDataMethod3() {
-        Collections.sort(dataList, new Comparator<String>() {
-            @Override
-            public int compare(String s1, String s2) {
-                return Integer.compare(s2.length(), s1.length());
-            }
-        });
-    }
-    private void sortDataMethod4() {
-        Collections.sort(dataList, new Comparator<String>() {
-            @Override
-            public int compare(String s1, String s2) {
-                return s2.compareTo(s1);
-            }
-        });
-    }
-    private void sortDataMethod5() {
-        Collections.shuffle(dataList);
+            Collections.swap(dataList, i, minIndex);
+        }
     }
 
+    private void sortInsertion() {
+        int n = dataList.size();
+        for (int i = 1; i < n; i++) {
+            String key = dataList.get(i);
+            int j = i - 1;
+            while (j >= 0 && dataList.get(j).compareTo(key) > 0) {
+                dataList.set(j + 1, dataList.get(j));
+                j--;
+            }
+            dataList.set(j + 1, key);
+        }
+    }
 
-    // Implement other sorting methods (sortDataMethod2, sortDataMethod3, ...)
+    private void sortMerge() {
+        mergeSort(dataList, 0, dataList.size() - 1);
+    }
+
+    private void mergeSort(List<String> arr, int left, int right) {
+        if (left < right) {
+            int mid = (left + right) / 2;
+            mergeSort(arr, left, mid);
+            mergeSort(arr, mid + 1, right);
+            merge(arr, left, mid, right);
+        }
+    }
+
+    private void merge(List<String> arr, int left, int mid, int right) {
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+
+        List<String> L = new ArrayList<>();
+        List<String> R = new ArrayList<>();
+
+        for (int i = 0; i < n1; i++) {
+            L.add(arr.get(left + i));
+        }
+        for (int j = 0; j < n2; j++) {
+            R.add(arr.get(mid + 1 + j));
+        }
+
+        int i = 0, j = 0;
+        int k = left;
+        while (i < n1 && j < n2) {
+            if (L.get(i).compareTo(R.get(j)) <= 0) {
+                arr.set(k, L.get(i));
+                i++;
+            } else {
+                arr.set(k, R.get(j));
+                j++;
+            }
+            k++;
+        }
+
+        while (i < n1) {
+            arr.set(k, L.get(i));
+            i++;
+            k++;
+        }
+
+        while (j < n2) {
+            arr.set(k, R.get(j));
+            j++;
+            k++;
+        }
+    }
+
+    private void sortQuick(List<String> arr, int low, int high) {
+        if (low < high) {
+            int pi = partition(arr, low, high);
+            sortQuick(arr, low, pi - 1);
+            sortQuick(arr, pi + 1, high);
+        }
+    }
+
+    private int partition(List<String> arr, int low, int high) {
+        String pivot = arr.get(high);
+        int i = low - 1;
+        for (int j = low; j < high; j++) {
+            if (arr.get(j).compareTo(pivot) < 0) {
+                i++;
+                Collections.swap(arr, i, j);
+            }
+        }
+        Collections.swap(arr, i + 1, high);
+        return i + 1;
+    }
 }

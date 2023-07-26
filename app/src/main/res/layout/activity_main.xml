@@ -11,34 +11,34 @@
         android:text="Random" />
 
     <Button
-        android:id="@+id/sortButton1"
+        android:id="@+id/sortBubbleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sắp xếp bình thường (lexicographically)" />
+        android:text="Bubble Sort" />
 
     <Button
-        android:id="@+id/sortButton2"
+        android:id="@+id/sortSelectionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sắp xếp theo độ dài chuỗi tăng dần" />
+        android:text="Selection Sort" />
 
     <Button
-        android:id="@+id/sortButton3"
+        android:id="@+id/sortInsertionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sắp xếp theo độ dài chuỗi giảm dần" />
+        android:text="Insertion Sort" />
 
     <Button
-        android:id="@+id/sortButton4"
+        android:id="@+id/sortMergeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sắp xếp theo thứ tự ngược (reverse lexicographically)" />
+        android:text="Merge Sort" />
 
     <Button
-        android:id="@+id/sortButton5"
+        android:id="@+id/sortQuickButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sắp xếp theo thứ tự ngẫu nhiên" />
+        android:text="Quick Sort" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
