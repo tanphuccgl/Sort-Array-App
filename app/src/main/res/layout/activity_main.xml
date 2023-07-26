@@ -1,0 +1,48 @@
+<!-- res/layout/activity_main.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/randomButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Random" />
+
+    <Button
+        android:id="@+id/sortButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sắp xếp bình thường (lexicographically)" />
+
+    <Button
+        android:id="@+id/sortButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sắp xếp theo độ dài chuỗi tăng dần" />
+
+    <Button
+        android:id="@+id/sortButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sắp xếp theo độ dài chuỗi giảm dần" />
+
+    <Button
+        android:id="@+id/sortButton4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sắp xếp theo thứ tự ngược (reverse lexicographically)" />
+
+    <Button
+        android:id="@+id/sortButton5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sắp xếp theo thứ tự ngẫu nhiên" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
